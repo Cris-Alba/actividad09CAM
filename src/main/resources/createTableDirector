@@ -1,0 +1,7 @@
+//Creación de la tabla director
+
+CREATE TABLE `filmoteca`.`director` (
+  `iddirector` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  `apellido` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`iddirector`));

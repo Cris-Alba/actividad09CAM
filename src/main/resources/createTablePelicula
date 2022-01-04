@@ -1,0 +1,43 @@
+//Creación de la tabla película
+
+CREATE TABLE `filmoteca`.`pelicula` (
+  `idpelicula` INT NOT NULL AUTO_INCREMENT,
+  `iddirector` INT NOT NULL,
+  `titulo` VARCHAR(45) NULL,
+  `director` VARCHAR(45) NULL,
+  `pais` VARCHAR(45) NULL,
+  `duracion` INT NULL,
+  `genero` VARCHAR(45) NULL,
+  PRIMARY KEY (`idpelicula`));
+
+ADD UNIQUE INDEX `iddirector_UNIQUE` (`iddirector` ASC) VISIBLE;
+
+
+CREATE TABLE `filmoteca`.`pelicula_director` (
+  `idpelicula` INT NOT NULL,
+  `idactor` INT NOT NULL,
+  PRIMARY KEY (`idpelicula`, `idactor`));
+
+
+CREATE TABLE `filmoteca`.`director` (
+  `iddirector` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  `apellido` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`iddirector`));
+
+
+  ALTER TABLE `filmoteca`.`pelicula_director`
+  CHANGE COLUMN `idactor` `iddirector` INT NOT NULL ,
+  ADD INDEX `fk_pelicula_director_director_idx` (`iddirector` ASC) VISIBLE;
+  ;
+  ALTER TABLE `filmoteca`.`pelicula_director`
+  ADD CONSTRAINT `fk_pelicula_director_director`
+    FOREIGN KEY (`iddirector`)
+    REFERENCES `filmoteca`.`director` (`iddirector`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_pelicula_director_pelicula`
+    FOREIGN KEY (`idpelicula`)
+    REFERENCES `filmoteca`.`pelicula` (`idpelicula`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
